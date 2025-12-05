@@ -4,7 +4,7 @@ Description: 'Anju Complete Infrastructure - ECS Fargate with CI/CD Pipeline (Re
 Parameters:
   EnvironmentName:
     Type: String
-    Default: Anju
+    Default: anju
     Description: Environment name prefix for resources
 # --- The 'Anju' prefix will be used here ---
   GitHubRepo:
