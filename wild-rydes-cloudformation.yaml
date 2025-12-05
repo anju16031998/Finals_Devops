@@ -548,9 +548,7 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:ListBucket
-                Resource:
-                  - !GetAtt ArtifactBucket.Arn
-                  - !Sub ${ArtifactBucket.Arn}/*
+                Resource: !Sub ${ArtifactBucket.Arn}/*
               - Effect: Allow
                 Action:
                   - ecr:GetAuthorizationToken
@@ -561,7 +559,7 @@ Resources:
                   - ecr:InitiateLayerUpload
                   - ecr:UploadLayerPart
                   - ecr:CompleteLayerUpload
-                Resource: !GetAtt ECRRepository.RepositoryArn
+                Resource: '*'
       Tags:
         - Key: Name
           Value: !Sub ${EnvironmentName}-CodeBuild-Role
@@ -597,6 +595,9 @@ Resources:
           phases:
             pre_build:
               commands:
+                - echo "=== PWD & directory listing ==="
+                - pwd
+                - ls -R
                 - echo Logging in to Amazon ECR...
                 - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
                 - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
@@ -604,6 +605,9 @@ Resources:
                 - IMAGE_TAG=${COMMIT_HASH:=latest}
             build:
               commands:
+                - echo "=== Checking for Dockerfile in current directory ==="
+                - ls
+                - if [ ! -f Dockerfile ]; then echo "ERROR: Dockerfile not found in `pwd`"; exit 1; fi
                 - echo Build started on `date`
                 - echo Building the Docker image...
                 - docker build -t $REPOSITORY_URI:latest .
@@ -618,12 +622,10 @@ Resources:
                 - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
           artifacts:
             files:
-              - imagedefinitions.json
-      Tags:
-        - Key: Name
+              - imagedefinitions.json  Tags:
+          Key: Name
           Value: !Sub ${EnvironmentName}-CodeBuild
-
-
+          
   # ===========================
   # CodePipeline
   # ===========================
