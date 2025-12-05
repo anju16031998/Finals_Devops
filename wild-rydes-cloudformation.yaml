@@ -595,9 +595,6 @@ Resources:
           phases:
             pre_build:
               commands:
-                - echo "=== PWD & directory listing ==="
-                - pwd
-                - ls -R
                 - echo Logging in to Amazon ECR...
                 - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
                 - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
@@ -605,9 +602,6 @@ Resources:
                 - IMAGE_TAG=${COMMIT_HASH:=latest}
             build:
               commands:
-                - echo "=== Checking for Dockerfile in current directory ==="
-                - ls
-                - if [ ! -f Dockerfile ]; then echo "ERROR: Dockerfile not found in `pwd`"; exit 1; fi
                 - echo Build started on `date`
                 - echo Building the Docker image...
                 - docker build -t $REPOSITORY_URI:latest .
@@ -622,7 +616,7 @@ Resources:
                 - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
           artifacts:
             files:
-              - imagedefinitions.json  Tags:
+              - imagedefinitions.json
           Key: Name
           Value: !Sub ${EnvironmentName}-CodeBuild
 
