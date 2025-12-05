@@ -10,7 +10,7 @@ Parameters:
   GitHubRepo:
     Type: String
     Description: GitHub repository name (e.g., owner/Finals_Devops)
-    Default: Finals_Devops
+    Default: anju16031998/finals_devops
 # --- You MUST provide the full 'owner/repo' structure (e.g., myuser/Finals_Devops) ---
   GitHubBranch:
     Type: String
