@@ -548,7 +548,9 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:ListBucket
-                Resource: !Sub ${ArtifactBucket.Arn}/*
+                Resource:
+                  - !GetAtt ArtifactBucket.Arn
+                  - !Sub ${ArtifactBucket.Arn}/*
               - Effect: Allow
                 Action:
                   - ecr:GetAuthorizationToken
@@ -559,7 +561,7 @@ Resources:
                   - ecr:InitiateLayerUpload
                   - ecr:UploadLayerPart
                   - ecr:CompleteLayerUpload
-                Resource: '*'
+                Resource: !GetAtt ECRRepository.RepositoryArn
       Tags:
         - Key: Name
           Value: !Sub ${EnvironmentName}-CodeBuild-Role
@@ -620,6 +622,7 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub ${EnvironmentName}-CodeBuild
+
 
   # ===========================
   # CodePipeline
