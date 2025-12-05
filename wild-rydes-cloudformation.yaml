@@ -6,7 +6,7 @@ Parameters:
     Type: String
     Default: anju
     Description: Environment name prefix for resources
-# --- The 'Anju' prefix will be used here ---
+# --- The 'anju' prefix will be used here ---
   GitHubRepo:
     Type: String
     Description: GitHub repository name (e.g., owner/Finals_Devops)
