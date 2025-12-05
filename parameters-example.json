@@ -1,0 +1,42 @@
+[
+  {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "WildRydes"
+  },
+  {
+    "ParameterKey": "GitHubRepo",
+    "ParameterValue": "anju16031998/finals_devops"
+  },
+  {
+    "ParameterKey": "GitHubBranch",
+    "ParameterValue": "main"
+  },
+  {
+    "ParameterKey": "GitHubToken",
+    "ParameterValue": "<REDACTED>"
+  },
+  {
+    "ParameterKey": "ContainerPort",
+    "ParameterValue": "80"
+  },
+  {
+    "ParameterKey": "DesiredCount",
+    "ParameterValue": "2"
+  },
+  {
+    "ParameterKey": "MinContainers",
+    "ParameterValue": "2"
+  },
+  {
+    "ParameterKey": "MaxContainers",
+    "ParameterValue": "10"
+  },
+  {
+    "ParameterKey": "AutoScalingTargetCPU",
+    "ParameterValue": "70"
+  },
+  {
+    "ParameterKey": "NotificationEmail",
+    "ParameterValue": "anju16031998@gmail.com"
+  }
+]
