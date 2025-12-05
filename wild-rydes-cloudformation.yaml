@@ -617,7 +617,8 @@ Resources:
           artifacts:
             files:
               - imagedefinitions.json
-          Key: Name
+      Tags:
+        - Key: Name
           Value: !Sub ${EnvironmentName}-CodeBuild
 
   # ===========================
